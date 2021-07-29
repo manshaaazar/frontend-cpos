@@ -1,0 +1,21 @@
+.nav-container:hover {
+    background-color: #1e4b55
+
+}
+.nav-container{
+    
+    div{
+        font-family: Lato,sans-serif;
+        font-weight: 700;
+        display: flex;
+        flex-direction: column;
+        font-size: 15px;
+        div{
+            display: flex;
+            flex-direction: row;
+            font-size: 12px;
+            font-family: Roboto,sans-serif;
+        }
+    }
+  
+}

@@ -1,0 +1,9 @@
+var firebaseConfig = {
+    apiKey: "AIzaSyBYXJ_jcolkiadRASjxoWA339SQQSDGk-o",
+    authDomain: "point-sale-system.firebaseapp.com",
+    projectId: "point-sale-system",
+    storageBucket: "point-sale-system.appspot.com",
+    messagingSenderId: "699870080383",
+    appId: "1:699870080383:web:b4825477935ae2bc693e4a",
+    measurementId: "G-N133F4NDWL"
+  };
