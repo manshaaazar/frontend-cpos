@@ -24,6 +24,7 @@ function App() {
         pauseOnHover
         draggable
         pauseOnFocusLoss
+        toastClassName="text-gray-700 font-medium"
         progressStyle={{ backgroundColor: "#053742" }}
       />
       <Router>

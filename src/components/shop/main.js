@@ -16,6 +16,7 @@ const Shop = ({
   shopCatalog,
   addShop,
   removeShop,
+  updateShop,
 }) => {
   const [toggle, setToggle] = useState(false);
   useEffect(() => getAllShops(), []);
@@ -43,11 +44,16 @@ const Shop = ({
         </p>
         <div className="shops-box  flex flex-row flex-wrap justify-center items-center">
           <div onClick={() => setToggle(true)}>
-            <Box Icon={HiPlus} name="Create new shop" />
+            <Box Icon={HiPlus} heading="Create new shop" />
           </div>
           {toggle ? (
             <div className="absolute top-1/4 left-2/5  bg-gray-200 rounded">
-              <AddForm setToggle={setToggle} addShop={addShop} key={false} />
+              <AddForm
+                setToggle={setToggle}
+                action="Add"
+                operation={addShop}
+                shop={null}
+              />
             </div>
           ) : (
             ""
@@ -57,12 +63,12 @@ const Shop = ({
             ? shopCatalog.shops.map((shop) => (
                 <Box
                   handleRemove={removeShop}
-                  setMenu="true"
-                  key={shop._id}
-                  shopName={shop.shopName}
+                  menu="true"
                   Icon={FcShop}
-                  name={shop.shopName}
-                  location={shop.location}
+                  heading={shop.shopName}
+                  details={shop.location}
+                  operation={updateShop}
+                  shopId={shop._id}
                 />
               ))
             : ""}

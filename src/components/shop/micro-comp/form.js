@@ -11,16 +11,24 @@ const Schema = Yup.object().shape({
   country: Yup.string().min(5, "Too short").max(50, "Too long"),
 });
 
-const AddForm = ({ setToggle, addShop, shopCatalog, key }) => {
+const AddForm = ({ setToggle, action, operation, shop }) => {
   const handleInitialValues = () => {
-    if (key) {
-      return { name: key };
+    if (shop) {
+      const { shopName, location, shopId } = shop;
+      return {
+        name: shopName,
+        city: location.city,
+        state: location.state,
+        country: location.country,
+        shopId,
+      };
     } else {
       return {
-        name: "MarsTec",
-        city: "Marsian",
-        state: "Marseta",
-        country: "Pakistan",
+        name: "",
+        city: "",
+        state: "",
+        country: "",
+        shopId: "",
       };
     }
   };
@@ -29,11 +37,24 @@ const AddForm = ({ setToggle, addShop, shopCatalog, key }) => {
       enableReinitialize={true}
       initialValues={handleInitialValues()}
       validationSchema={Schema}
-      onSubmit={(values) => addShop(values)}
+      onSubmit={(values) => operation(values)}
     >
       {({ errors, touched }) => (
         <Form className=" mt-2 ml-4 w-72 h-96 flex flex-col justify-around border border-red-600">
           <p className="font-medium text-gray-700">Shop Details</p>
+          <div className="hidden">
+            <label
+              htmlFor="shop-Id"
+              className="text-sm font-medium text-gray-700 "
+            >
+              shopId
+            </label>
+            <Field
+              name="shopId"
+              placeholder="shopId"
+              className="mt-1 p-1  focus:border-ocean-light block border  shadow-sm sm:text-sm border-gray-300 rounded-md "
+            />
+          </div>
           <div className="ml-4">
             <label
               htmlFor="shop-name"
@@ -44,7 +65,7 @@ const AddForm = ({ setToggle, addShop, shopCatalog, key }) => {
             <Field
               name="name"
               placeholder="name"
-              className="mt-1 p-1 focus:ring-ocean focus:border-ocean-light block border  shadow-sm sm:text-sm border-gray-300 rounded-md "
+              className="mt-1 p-1  focus:border-ocean-light block border  shadow-sm sm:text-sm border-gray-300 rounded-md "
             />
             {errors.name && touched.name ? (
               <p className="font-medium  text-xs text-red-500">{errors.name}</p>
@@ -58,7 +79,7 @@ const AddForm = ({ setToggle, addShop, shopCatalog, key }) => {
             <Field
               name="city"
               placeholder="city"
-              className="mt-1 p-1 focus:ring-ocean focus:border-ocean-light block  shadow-sm sm:text-sm border-gray-300 rounded-md"
+              className="mt-1 p-1  focus:border-ocean-light block  shadow-sm sm:text-sm border-gray-300 rounded-md"
             />
             {errors.city && touched.city ? (
               <p className="font-medium  text-xs text-red-500">{errors.city}</p>
@@ -72,7 +93,7 @@ const AddForm = ({ setToggle, addShop, shopCatalog, key }) => {
             <Field
               name="state"
               placeholder="state"
-              className="mt-1 p-1 focus:ring-ocean focus:border-ocean-light block  shadow-sm sm:text-sm border-gray-300 rounded-md"
+              className="mt-1 p-1  focus:border-ocean-light block  shadow-sm sm:text-sm border-gray-300 rounded-md"
             />
             {errors.state && touched.state ? (
               <p className="font-medium  text-xs text-red-500">
@@ -88,7 +109,7 @@ const AddForm = ({ setToggle, addShop, shopCatalog, key }) => {
             <Field
               name="country"
               placeholder="country"
-              className="mt-1 p-1 focus:ring-ocean focus:border-ocean-light block  shadow-sm sm:text-sm border-gray-300 rounded-md"
+              className="mt-1 p-1  focus:border-ocean-light block  shadow-sm sm:text-sm border-gray-300 rounded-md"
             />
             {errors.country && touched.country ? (
               <p className="font-medium  text-xs text-red-500">
@@ -108,7 +129,7 @@ const AddForm = ({ setToggle, addShop, shopCatalog, key }) => {
               type="submit"
               className="ml-4 mr-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-ocean-light hover:bg-ocean focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ocean-dark"
             >
-              Create
+              {action}
             </button>
           </div>
         </Form>

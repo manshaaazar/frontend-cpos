@@ -1,5 +1,7 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import shop from "../reducers/shop";
 export const getAllShops = () => {
   return async (dispatch) => {
     const response = await axios({
@@ -41,7 +43,7 @@ export const addShop = (values) => {
       toast.success(`${data.message}`);
       return dispatch({
         type: "ADDSHOP",
-        payload: shop,
+        payload: data.shop,
       });
     } else {
       return toast.error(`${data.message}`);
@@ -66,6 +68,36 @@ export const removeShop = (shopName) => {
       });
     } else {
       console.log("error", response);
+      toast.error(`${data.message}`);
+    }
+  };
+};
+export const updateShop = (values) => {
+  return async (dispatch) => {
+    values.name = values.name.toLowerCase();
+    console.log("values", values);
+    const shop = {
+      shopName: values.name,
+      location: {
+        city: values.city,
+        state: values.state,
+        country: values.country,
+      },
+      shopId: values.shopId,
+    };
+    const response = await axios({
+      method: "POST",
+      url: "/shop/update",
+      data: shop,
+    });
+    const { data } = response;
+    if (data.status === 200) {
+      toast.success(`${data.message}`);
+      return dispatch({
+        type: "SHOP_UPDATE",
+        payload: shop,
+      });
+    } else {
       toast.error(`${data.message}`);
     }
   };
