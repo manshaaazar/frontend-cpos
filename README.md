@@ -7,6 +7,7 @@ Features :
  - Per Shop Analytics 
  - Build in barcode generator
  - Event based graceful alerts 
+
 Technologies used : 
  - NodeJs(Express)
  - ReactJs
@@ -16,6 +17,7 @@ Technologies used :
  - Tailwindcss
  - Firebase
  - SASS
+
 Deployment Platform : 
  - Kubernetes 
  - GCP
