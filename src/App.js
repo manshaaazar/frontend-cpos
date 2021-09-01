@@ -1,4 +1,5 @@
 import "./App.css";
+import LoadingFig from "./resources/loading.svg";
 import axios from "axios";
 import { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -31,8 +32,11 @@ function App({}) {
       <Router>
         <Suspense
           fallback={
-            <div className="font-medium text-gray-700 text-xl tracking-wide leading-10">
-              <p>Loading...</p>
+            <div className="w-screen h-screen font-mono text-gray-700 text-xl tracking-wide leading-10 flex justify-center items-center">
+              <img src={LoadingFig} />
+              <div className="h-screen w-screen absolute flex justify-center items-start">
+                <h4>Loading Content</h4>
+              </div>
             </div>
           }
         >

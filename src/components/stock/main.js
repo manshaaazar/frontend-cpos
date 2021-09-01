@@ -19,7 +19,7 @@ const Stock = ({ brands, getBrands, addBrand, removeBrand }) => {
     <div className="root-container flex justify-start items-start  h-screen">
       <SideMenu />
       <div className="content-container h-auto w-full ">
-        <div className="content-header  bg-ocean flex justify-between items-center ">
+        <div className="content-header h-10  bg-ocean flex justify-between items-center ">
           <h4 className="p-1  text-md text-white font-bold tracking-wider ">
             Brands
           </h4>
@@ -48,8 +48,18 @@ const Stock = ({ brands, getBrands, addBrand, removeBrand }) => {
         <p className="font-bold text-white text-2xl select-none  ">+</p>
       </div>
       {crudFormToggle ? (
-        <div className="absolute top-1/4 right-1/4 bg-gray-200 rounded h-80 w-80 p-2">
+        <div className="absolute top-1/4 right-1/4 bg-gray-200 rounded h-80 w-80 p-2 flex flex-col justify-between items-center">
           <AddBrandForm addBrand={addBrand} />
+
+          <div className="w-full flex justify-end items-center h-14  ">
+            <button
+              onClick={() => setcrudFormToggle(false)}
+              type="submit"
+              className=" ml-2 mr-4 inline-flex justify-center py-2 px-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-ocean-light hover:bg-ocean-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ocean-dark"
+            >
+              Close
+            </button>
+          </div>
         </div>
       ) : null}
     </div>

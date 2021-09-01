@@ -16,14 +16,14 @@ const AddBrand = ({ addBrand }) => {
       onSubmit={(values) => addBrand(values.brandName)}
     >
       {({ errors, touched }) => (
-        <Form className=" h-20 ">
+        <Form className=" h-auto flex-col justify-center items-center">
           <label
             htmlFor="brand-name"
             className="text-sm font-medium text-gray-700 "
           >
             Brand Name
           </label>
-          <div className="form-inputs flex  justify-center items-center ">
+          <div className="form-inputs flex  justify-center items-center h-14 ">
             <Field
               name="brandName"
               placeholder="Enter brand name"

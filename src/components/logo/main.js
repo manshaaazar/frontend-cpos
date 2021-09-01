@@ -1,6 +1,6 @@
 import React from "react";
 import LOGO from "./resources/logo.svg";
-const Logo = (shadow) => {
+const Logo = () => {
   return (
     <div
       className={"header-sec select-none"}
