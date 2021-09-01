@@ -1,6 +1,7 @@
-import { FcStackOfPhotos } from "react-icons/fc";
-
-const defaultState = { shops: [{}] };
+const defaultState = {
+  activeShop: JSON.parse(window.localStorage.getItem("active")) || null,
+  shops: [],
+};
 
 export default (state = defaultState, action) => {
   switch (action.type) {
@@ -11,12 +12,16 @@ export default (state = defaultState, action) => {
     case "ADDSHOP":
       const { shops } = state;
       return {
+        ...state,
+        activeShop: JSON.parse(window.localStorage.getItem("active")) || null,
         shops: [...shops, action.payload],
       };
     case "SHOP_REMOVED":
       const { payload: shopName } = action;
       const updateShops = state.shops.filter((el) => el.shopName !== shopName);
       return {
+        ...state,
+        activeShop: JSON.parse(window.localStorage.getItem("active")) || null,
         shops: updateShops,
       };
     case "SHOP_UPDATE":
@@ -33,6 +38,8 @@ export default (state = defaultState, action) => {
       _shops[shopIndex].location = action.payload.location;
       console.log("shops", _shops);
       return {
+        ...state,
+        activeShop: JSON.parse(window.localStorage.getItem("active")) || null,
         shops: _shops,
       };
     default:

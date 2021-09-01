@@ -10,7 +10,6 @@ const Schema = Yup.object().shape({
   state: Yup.string().min(5, "Too short").max(50, "Too long"),
   country: Yup.string().min(5, "Too short").max(50, "Too long"),
 });
-
 const AddForm = ({ setToggle, action, operation, shop }) => {
   const handleInitialValues = () => {
     if (shop) {

@@ -28,33 +28,26 @@ const BarcodeGen = ({}) => {
 
   return (
     <div
-      className="barcode-container"
+      className="barcode-container absolute  h-2/4 w-96 flex flex-col justify-center items-center  bg-gray-300 rounded-md transition-all duration-200 ease-linear "
       style={{
-        backgroundColor: "#BEAEE2",
-        height: "80vh",
-        width: "400px",
-        position: "absolute",
         right: rightValue,
         top: "10%",
-        borderRadius: "3px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        transition: "right 0.5s ease-out",
       }}
     >
+      <p className="font-medium leading-10 text-lg text-gray-700 tracking-wide select-none">
+        Barcode Generator
+      </p>
       <div
         className="barcode-opener"
         onClick={() => openBarcodeGeneratorPanelHandler()}
-        style={{ position: "absolute", bottom: "50%", left: "-31px" }}
+        style={{ position: "absolute", bottom: "50%", left: "-40px" }}
       >
         {rightValue === "-400px" ? (
-          <button className="btn btn-outline-dark btn-sm">
+          <button className="">
             <HiChevronDoubleLeft />
           </button>
         ) : (
-          <button className="btn btn-outline-dark btn-sm">
+          <button className="">
             <HiChevronDoubleRight />
           </button>
         )}
@@ -78,13 +71,7 @@ const BarcodeGen = ({}) => {
         >
           {downloadbtn ? (
             <button
-              className="btn btn-outline-dark btn-sm"
-              style={{
-                position: "absolute",
-                top: "202px",
-                left: "320px",
-                zIndex: "200",
-              }}
+              className="absolute left-3/4 top-46 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-ocean-light hover:bg-ocean focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ocean"
               onClick={() => print("barcodeFrame", "html")}
             >
               <HiOutlineDownload size="15px" />

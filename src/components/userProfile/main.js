@@ -14,14 +14,14 @@ const UserProfile = ({ googleLogOut }) => {
       {toggle ? (
         <div
           onMouseLeave={() => setToggle(false)}
-          className="menu-container absolute top-12 right-4 bg-white rounded-md  h-40 w-40"
+          className="menu-container absolute top-12 right-4 bg-ocean rounded-md  h-40 w-40"
         >
-          <div className=" h-full w-auto flex flex-col justify-center items-center ">
+          <div className=" h-full w-auto flex flex-col justify-center items-center text-white ">
             <p
               onClick={() => {
                 logOut(googleLogOut);
               }}
-              className="font-detail text-sm leading-10 font-semibold cursor-pointer hover:bg-gray-200 w-full text-center transition-all duration-200 ease-in"
+              className="font-detail text-sm leading-10 font-semibold cursor-pointer hover:bg-ocean-light w-full text-center transition-all duration-200 ease-in"
             >
               Logout
             </p>

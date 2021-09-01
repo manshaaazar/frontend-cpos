@@ -1,22 +1,23 @@
 import "./App.css";
 import axios from "axios";
-import Home from "./components/home/main";
-import Dashboard from "./components/dashboard/main";
-import Analytics from "./components/analytics/main";
-import Stock from "./components/stock/main";
-import Shop from "./components/shop/main";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { Suspense, lazy, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+const Home = lazy(() => import("./components/home/main"));
+const Dashboard = lazy(() => import("./components/dashboard/main"));
+const Analytics = lazy(() => import("./components/analytics/main"));
+const Stock = lazy(() => import("./components/stock/main"));
+const Shop = lazy(() => import("./components/shop/main"));
 // axios defaults
 axios.defaults.baseURL = "http://localhost:3001";
 axios.defaults.headers.common["access_token"] =
   JSON.parse(window.localStorage.getItem("accessToken")) ?? null;
 // root function
-function App() {
+function App({}) {
   return (
     <>
       <ToastContainer
-        position="top-right"
+        position="bottom-right"
         autoClose="3000"
         hideProgressBar={false}
         newestOnTop={true}
@@ -28,23 +29,31 @@ function App() {
         progressStyle={{ backgroundColor: "#053742" }}
       />
       <Router>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route path="/analytics">
-            <Analytics />
-          </Route>
-          <Route path="/stock">
-            <Stock />
-          </Route>
-          <Route path="/shop">
-            <Shop />
-          </Route>
-        </Switch>
+        <Suspense
+          fallback={
+            <div className="font-medium text-gray-700 text-xl tracking-wide leading-10">
+              <p>Loading...</p>
+            </div>
+          }
+        >
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
+            <Route path="/analytics">
+              <Analytics />
+            </Route>
+            <Route path="/stock">
+              <Stock />
+            </Route>
+            <Route path="/shop">
+              <Shop />
+            </Route>
+          </Switch>
+        </Suspense>
       </Router>
     </>
   );

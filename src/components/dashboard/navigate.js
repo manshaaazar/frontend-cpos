@@ -1,29 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 const Navigate = ({ navTo, detail, heading }) => {
+  const history = useHistory();
+  const [clicked, setClicked] = useState();
   return (
     <div
-      className="nav-container"
-      style={{
-        height: "30px",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        padding: "20px",
-        textAlign: "left",
-        borderTop: "1px solid #1e4b55",
+      className={`nav-container h-20 p-2 hover:bg-ocean-light cursor-pointer transition-all duration-200 ease-linear ${clicked} `}
+      onClick={() => {
+        clicked ? setClicked(false) : setClicked("bg-ocean-light");
+        history.push("/stock");
       }}
     >
       <div>
-        <Link to={navTo} style={{ textDecoration: "none", color: "white" }}>
+        <p className="font-medium text-white tracking-wide text-lg">
           {heading}
-        </Link>
-        <div>
-          {" "}
-          {detail.map((word) => (
-            <span style={{ margin: "2px", color: "#02161a" }}>{`${word}`}</span>
-          ))}{" "}
+        </p>
+        <div className="flex flex-row  justify-between items-center ">
+          {detail.map((word, index) => (
+            <span
+              key={index}
+              className="font-detail text-white  text-sm"
+            >{`${word}`}</span>
+          ))}
         </div>
       </div>
     </div>

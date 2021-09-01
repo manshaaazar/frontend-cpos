@@ -45,20 +45,21 @@ const BarcodeForm = ({ barcodeGeneratorHandler }) => {
               >
                 <Field
                   name="productId"
-                  className="form-control form-control-sm"
+                  className="m-2 p-1  focus:border-ocean-light block  shadow-sm sm:text-sm border-gray-300 rounded-md"
                   style={{ width: "200px " }}
                   placeholder="Enter product Id"
                 />
                 {errors.productId && touched.productId ? (
-                  <p>{errors.productId}</p>
+                  <p className="font-medium text-red-500 text-sm ">
+                    {errors.productId}
+                  </p>
                 ) : null}
               </div>
 
               <Field
                 as="select"
-                className="form-select form-select-md"
+                className="m-1  p-1 focus:border-ocean-light block  shadow-sm sm:text-sm border-gray-300 rounded-md"
                 name="formate"
-                style={{ width: "80px" }}
               >
                 <option value="code128">code128</option>
                 <option value="code39">code39</option>
@@ -66,7 +67,10 @@ const BarcodeForm = ({ barcodeGeneratorHandler }) => {
               </Field>
             </div>
 
-            <button className="btn btn-dark" type="submit">
+            <button
+              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-ocean-light hover:bg-ocean focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ocean-light"
+              type="submit"
+            >
               Generate Barcode
             </button>
           </Form>

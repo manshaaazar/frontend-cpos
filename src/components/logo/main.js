@@ -3,7 +3,7 @@ import LOGO from "./resources/logo.svg";
 const Logo = (shadow) => {
   return (
     <div
-      className={"header-sec"}
+      className={"header-sec select-none"}
       style={{
         width: "100%",
         height: "40px",
