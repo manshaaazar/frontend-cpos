@@ -5,7 +5,6 @@ import App from "./App";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import { ToastContainer } from "react-toastify";
 import rootReducer from "./reducers/root";
 import reportWebVitals from "./reportWebVitals";
 import "react-toastify/dist/ReactToastify.css";

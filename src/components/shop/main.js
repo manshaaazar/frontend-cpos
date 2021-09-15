@@ -7,8 +7,7 @@ import { FcShop } from "react-icons/fc";
 import Logo from "../logo/main";
 import Poster from "./resources/shop-poster.svg";
 import "./shop.scss";
-//import AddForm from "./micro-comp/form";
-const UserProfile = lazy(() => import("../userProfile/main"));
+const Setting = lazy(() => import("../setting/main"));
 const AddForm = lazy(() => import("./micro-comp/form"));
 const Box = lazy(() => import("./micro-comp/shopbox"));
 const Shop = ({
@@ -20,7 +19,9 @@ const Shop = ({
   updateShop,
 }) => {
   const [toggle, setToggle] = useState(false);
-  useEffect(() => getAllShops(), []);
+  useEffect(() => {
+    getAllShops();
+  }, []);
   const history = useHistory();
   if (!accessToken) {
     history.push("/");
@@ -29,13 +30,14 @@ const Shop = ({
   return (
     <div className="master-cotainer h-screen">
       <div className="sticky top-0">
-        <div className="flex flex-row">
+        <div className="flex flex-row bg-ocean ">
           <Logo />
-          <UserProfile />
+
+          <Setting color="white" />
         </div>
       </div>
       <div
-        className="poster bg-no-repeat bg-scroll bg-clip-content bg-contain bg-left h-1/5 font-bold"
+        className="poster  bg-no-repeat bg-scroll bg-clip-content bg-contain bg-left h-1/5 font-bold"
         style={{ backgroundImage: `url(${Poster})` }}
       ></div>
       <div className="shop-container p-2 h-3/4 border border-black">

@@ -4,6 +4,7 @@ export const getBrands = () => {
   return async (dispatch) => {
     const shopId = JSON.parse(window.localStorage.getItem("active"));
     console.log("activeShop", shopId);
+    dispatch({ type: "LOADING_BRANDS", payload: true });
     const response = await axios({
       method: "POST",
       url: "/stock/brand/all",
@@ -14,7 +15,7 @@ export const getBrands = () => {
     const { data } = response;
     if (data.status === 200) {
       // data.brands is an array of brands
-      return dispatch({
+      dispatch({
         type: "GET_ALL_BRANDS",
         payload: data.brands,
       });
@@ -48,9 +49,10 @@ export const addBrand = (brandName) => {
     }
   };
 };
-export const removeBrand = (brandName) => {
-  return async (dispatch) => {
+export const removeBrand = () => {
+  return async (dispatch, getState) => {
     const shopId = JSON.parse(window.localStorage.getItem("active"));
+    const { brandToBeRemoved: brandName } = getState().stock;
     const response = await axios({
       url: "/stock/brand/remove",
       method: "POST",
@@ -69,5 +71,44 @@ export const removeBrand = (brandName) => {
     } else {
       toast.error(`${data.message}`);
     }
+  };
+};
+export const getProductsPerBrand = (brandName) => {
+  return async (dispatch, getState) => {
+    const shopId = JSON.parse(window.localStorage.getItem("active")) ?? "";
+    dispatch({ type: "SET_LOADING_PRODUCTS", payload: true });
+    const response = await axios({
+      url: "/stock/products",
+      method: "POST",
+      data: {
+        shopId,
+        brandName,
+      },
+    });
+    const { data } = response;
+    if (data.status === 200) {
+      dispatch({
+        type: "PRODUCTS_PER_BRAND",
+        payload: data.products,
+      });
+    } else {
+      toast.info(`${data.message}`);
+    }
+  };
+};
+export const setActiveBrand = (brandName) => {
+  return (dispatch) => {
+    dispatch({
+      type: "SET_ACTIVE_BRAND",
+      payload: brandName,
+    });
+  };
+};
+export const setRemovalBrand = (brandName) => {
+  return (dispatch) => {
+    dispatch({
+      type: "SET_REMOVAL_BRAND",
+      payload: brandName,
+    });
   };
 };

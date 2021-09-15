@@ -1,43 +1,54 @@
-import React, { lazy, useEffect, useState } from "react";
+import React, { lazy, useEffect, useState, Suspense } from "react";
 import * as actions from "../../actions/stock";
 import { connect } from "react-redux";
-const Setting = lazy(() => import("../userProfile/main"));
+const Setting = lazy(() => import("../setting/main"));
 const BrandBar = lazy(() => import("./micro-comp/brand.js"));
 const SideMenu = lazy(() => import("../dashboard/main"));
 const Search = lazy(() => import("./micro-comp/search"));
+const AddBrandForm = lazy(() => import("./micro-comp/form/addBrand"));
+const Filter = lazy(() => import("./Filter/main"));
+const Loading = lazy(() => import("../../skeletons/spinner"));
+const ConfirmationBox = lazy(() => import("../lib/confirmationBox/main"));
 //const CircleMenu = lazy(() => import("./micro-comp/circleMenu"));
-const AddBrandForm = lazy(() => import("./micro-comp/crud/brand"));
-const Stock = ({ brands, getBrands, addBrand, removeBrand }) => {
+const Stock = ({
+  getBrands,
+  addBrand,
+  removeBrand,
+  brands,
+  getProductsPerBrand,
+}) => {
   const [crudFormToggle, setcrudFormToggle] = useState(false);
-  const [addBrandToggle, setAddBrandToggle] = useState(false);
-  const [circleMenuToggle, setCircleMenuToggle] = useState(false);
+  const [confirmationBox, setConfirmationBox] = useState(false);
+  const [filterMenuToggle, setFilterMenuToggle] = useState(false);
 
   useEffect(() => {
     getBrands();
   }, []);
+
+  const btnCancelHandler = () => {
+    setConfirmationBox(false);
+  };
+
   return (
-    <div className="root-container flex justify-start items-start  h-screen">
+    <div className="root-container flex justify-start items-start  h-screen ">
       <SideMenu />
-      <div className="content-container h-auto w-full ">
-        <div className="content-header h-10  bg-ocean flex justify-between items-center ">
-          <h4 className="p-1  text-md text-white font-bold tracking-wider ">
-            Brands
-          </h4>
+      <div className="content-container  w-full  ">
+        <div className=" b content-header h-12  bg-white flex justify- items-center w-full">
           <Search />
-          <Setting />
+          <div className="flex flex-row justify-between items-center w-full h-full">
+            <Filter
+              filterMenuToggle={filterMenuToggle}
+              setFilterMenuToggle={setFilterMenuToggle}
+              filters={brands}
+              filterOnClickHandler={getProductsPerBrand}
+            />
+            <Setting color="black" />
+          </div>
         </div>
         <div
           style={{ height: "94vh" }}
           className="brand-bar-container flex flex-col  overflow-y-scroll "
-        >
-          {brands.map((brand, index) => (
-            <BrandBar
-              key={index}
-              brand={brand}
-              removeBrandHandler={removeBrand}
-            />
-          ))}
-        </div>
+        ></div>
       </div>
 
       {/*absolute dives*/}
@@ -47,7 +58,7 @@ const Stock = ({ brands, getBrands, addBrand, removeBrand }) => {
       >
         <p className="font-bold text-white text-2xl select-none  ">+</p>
       </div>
-      {crudFormToggle ? (
+      {crudFormToggle && (
         <div className="absolute top-1/4 right-1/4 bg-gray-200 rounded h-80 w-80 p-2 flex flex-col justify-between items-center">
           <AddBrandForm addBrand={addBrand} />
 
@@ -61,14 +72,37 @@ const Stock = ({ brands, getBrands, addBrand, removeBrand }) => {
             </button>
           </div>
         </div>
-      ) : null}
+      )}
+      {confirmationBox && (
+        <ConfirmationBox
+          btnproceedText="Remove"
+          setConfirmationBox={setConfirmationBox}
+          btnCancelText="Cancel"
+          message="Under this Brand all products will also be removed"
+          btnProceedHandler={removeBrand}
+          btnCancelHandler={btnCancelHandler}
+        />
+      )}
     </div>
   );
 };
 const mapStateToProps = (state) => {
   console.log("state", state);
+  const { stock } = state;
+  const {
+    brands,
+    productsPerBrand,
+    activeBrand,
+    loadingProducts,
+    loadingBrands,
+  } = stock;
   return {
-    brands: state.stock.brands,
+    loadingBrands,
+    productsPerBrand,
+    activeBrand,
+    loadingProducts,
+    brands,
   };
 };
+
 export default connect(mapStateToProps, actions)(Stock);

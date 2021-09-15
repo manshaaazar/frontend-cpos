@@ -16,15 +16,15 @@ const Search = ({}) => {
       onSubmit={(values) => console.log("searchValue:", values)}
     >
       {({ errors, touched }) => (
-        <Form className=" flex justify-center items-center w-9/12  ">
+        <Form className=" flex justify-center items-center w-full h-full select-none  ">
           <Field
             name="searchValue"
             placeholder="Search here"
-            className="focus:border-ocean-light w-9/12  mr-1 p-1 rounded-sm text-black font-mono "
+            className=" focus:ring-ocean-light bg-gray-200  w-9/12  mr-2 p-1 rounded-sm text-gray-700 font-mono hover:bg-gray-200 focus:outline-none focus:ring-1   "
           />
           <button
             type="submit"
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-ocean-light hover:bg-ocean-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ocean-dark"
+            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-xs font-medium rounded-md text-white bg-ocean-light hover:bg-ocean-dark focus:outline-none  focus:ring-ocean-dark"
           >
             Search
           </button>

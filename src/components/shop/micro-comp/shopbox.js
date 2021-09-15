@@ -19,7 +19,7 @@ const Box = ({ Icon, handleRemove, operation, details, heading, shopId }) => {
         <HiOutlineDotsVertical className="h-4 w-4 cursor-pointer " />
       </div>
 
-      {toggleUpdateForm ? (
+      {toggleUpdateForm && (
         <div className="absolute top-1/4 left-2/5  bg-gray-200 rounded">
           <UpdateForm
             setToggle={setToggleUpdateForm}
@@ -28,7 +28,7 @@ const Box = ({ Icon, handleRemove, operation, details, heading, shopId }) => {
             shop={{ shopName: heading, location: details, shopId }}
           />
         </div>
-      ) : null}
+      )}
 
       {toggle ? (
         <div
@@ -69,11 +69,11 @@ const Box = ({ Icon, handleRemove, operation, details, heading, shopId }) => {
           <p className="font-heading  tracking-normal text-medium text-center">
             {heading}
           </p>
-          {details ? (
-            <p className="font-detail  text-sm flex flex-row justify-center item-center ">
+          {details && (
+            <p className="font-detail  text-sm flex flex-row justify-center item-center mb-1 ">
               {details.city} {details.state} {details.country}
             </p>
-          ) : null}
+          )}
         </div>
       </div>
       <div className="h-1 w-full bg-ocean-light rounded-sm"></div>

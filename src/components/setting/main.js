@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { HiCog } from "react-icons/hi";
+import { HiOutlineCog } from "react-icons/hi";
 import { logOut } from "../services/firebase";
 import { connect } from "react-redux";
 import * as actions from "../../actions/login";
-const UserProfile = ({ googleLogOut }) => {
+const Setting = ({ googleLogOut, color }) => {
   const [toggle, setToggle] = useState(false);
   return (
     <div className="select-none">
-      <HiCog
-        className="h-10 w-10 bg-ocean text-white hover:shadow-lg cursor-pointer"
-        onClick={() => (toggle ? setToggle(false) : setToggle(true))}
+      <HiOutlineCog
+        className={`h-7 w-7 text-${color}   cursor-pointer`}
+        onClick={() => setToggle((prevState) => !prevState)}
       />
-      {toggle ? (
+      {toggle && (
         <div
           onMouseLeave={() => setToggle(false)}
           className="menu-container absolute top-12 right-4 bg-ocean rounded-md  h-40 w-40"
@@ -27,11 +27,9 @@ const UserProfile = ({ googleLogOut }) => {
             </p>
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };
-const mapStateToProps = (state) => {
-  console.log("state", state);
-};
-export default connect(mapStateToProps, actions)(UserProfile);
+
+export default connect(null, actions)(Setting);
