@@ -5,12 +5,22 @@ import App from "./App";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./reducers/root";
 import reportWebVitals from "./reportWebVitals";
 import "react-toastify/dist/ReactToastify.css";
+const enhancedComposeWithDevTools = composeWithDevTools({
+  trace: true,
+});
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={createStore(rootReducer, {}, applyMiddleware(thunk))}>
+    <Provider
+      store={createStore(
+        rootReducer,
+        {},
+        enhancedComposeWithDevTools(applyMiddleware(thunk))
+      )}
+    >
       <App />
     </Provider>
   </React.StrictMode>,

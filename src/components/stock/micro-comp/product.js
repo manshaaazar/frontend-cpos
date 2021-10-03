@@ -1,12 +1,6 @@
 import React from "react";
-import { useEffect } from "react";
-import { Formik, Form, Field } from "formik";
-
-const Product = ({ product }) => {
-  useEffect(() => {
-    console.log("product", product);
-  }, []);
-  return <div>{}</div>;
-};
+import { connect } from "react-redux";
+import * as actions from "../../../actions/stock";
+const Product = () => {};
 
 export default Product;

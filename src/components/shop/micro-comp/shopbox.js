@@ -42,13 +42,13 @@ const Box = ({ Icon, handleRemove, operation, details, heading, shopId }) => {
                 // e.stopPropagation();
                 setToggleUpdateForm(true);
               }}
-              className="m-1 font-medium text-xs leading-10 tracking-wide  text-center w-full hover:bg-gray-300 cursor-pointer"
+              className="m-1 font-medium text-xs leading-10 tracking-wide  text-center w-full hover:bg-gray-400 cursor-pointer"
             >
               Edit
             </p>
             <p
               onClick={() => handleRemove(heading)}
-              className="m-1 font-medium text-xs leading-10 tracking-wide  text-center w-full hover:bg-gray-300 cursor-pointer"
+              className="m-1 font-medium text-xs leading-10 tracking-wide  text-center w-full hover:bg-gray-400 cursor-pointer"
             >
               Remove
             </p>

@@ -73,26 +73,32 @@ export const removeBrand = () => {
     }
   };
 };
-export const getProductsPerBrand = (brandName) => {
+export const filterProducts = (values) => {
   return async (dispatch, getState) => {
     const shopId = JSON.parse(window.localStorage.getItem("active")) ?? "";
-    dispatch({ type: "SET_LOADING_PRODUCTS", payload: true });
+    const { brands } = getState().stock;
+    let filters = values.checked.map((brandName) =>
+      brands.filter((brand) => brand.brandName === brandName)
+    );
+    filters = filters.flat();
+    console.log("filters", filters);
+    await dispatch({ type: "SET_LOADING_PRODUCTS", payload: true });
     const response = await axios({
-      url: "/stock/products",
+      url: "/stock/brand/filter/products",
       method: "POST",
       data: {
         shopId,
-        brandName,
+        filters,
       },
     });
     const { data } = response;
     if (data.status === 200) {
-      dispatch({
+      return dispatch({
         type: "PRODUCTS_PER_BRAND",
         payload: data.products,
       });
     } else {
-      toast.info(`${data.message}`);
+      toast.error(`${data.message}`);
     }
   };
 };

@@ -4,7 +4,7 @@ const defaultState = {
   brands: [],
   brandToBeRemoved: "",
   activeBrand: "",
-  productsPerBrand: {},
+  productsPerBrand: [],
 };
 
 export default (state = defaultState, action) => {
@@ -53,7 +53,11 @@ export default (state = defaultState, action) => {
         activeBrand: action.payload,
       };
     case "PRODUCTS_PER_BRAND":
-      console.log("products", action.payload);
+      return {
+        ...state,
+        loadingProducts: false,
+        productsPerBrand: action.payload,
+      };
 
     default:
       return state;

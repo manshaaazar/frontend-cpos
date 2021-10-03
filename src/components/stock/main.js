@@ -1,21 +1,22 @@
-import React, { lazy, useEffect, useState, Suspense } from "react";
+import React, { lazy, useEffect, useState } from "react";
 import * as actions from "../../actions/stock";
 import { connect } from "react-redux";
 const Setting = lazy(() => import("../setting/main"));
-const BrandBar = lazy(() => import("./micro-comp/brand.js"));
 const SideMenu = lazy(() => import("../dashboard/main"));
 const Search = lazy(() => import("./micro-comp/search"));
 const AddBrandForm = lazy(() => import("./micro-comp/form/addBrand"));
-const Filter = lazy(() => import("./Filter/main"));
+const Filter = lazy(() => import("./filter/main"));
 const Loading = lazy(() => import("../../skeletons/spinner"));
 const ConfirmationBox = lazy(() => import("../lib/confirmationBox/main"));
-//const CircleMenu = lazy(() => import("./micro-comp/circleMenu"));
+const ProductCard = lazy(() => import("./detail-card/main"));
 const Stock = ({
   getBrands,
   addBrand,
   removeBrand,
   brands,
-  getProductsPerBrand,
+  filterProducts,
+  loadingBrands,
+  productsPerBrand,
 }) => {
   const [crudFormToggle, setcrudFormToggle] = useState(false);
   const [confirmationBox, setConfirmationBox] = useState(false);
@@ -40,15 +41,16 @@ const Stock = ({
               filterMenuToggle={filterMenuToggle}
               setFilterMenuToggle={setFilterMenuToggle}
               filters={brands}
-              filterOnClickHandler={getProductsPerBrand}
+              filterBtnHandler={filterProducts}
+              loadingState={loadingBrands}
+              LoadingComp={Loading}
             />
             <Setting color="black" />
           </div>
         </div>
-        <div
-          style={{ height: "94vh" }}
-          className="brand-bar-container flex flex-col  overflow-y-scroll "
-        ></div>
+        <main style={{ height: "94vh" }}>
+          <ProductCard items={productsPerBrand} />
+        </main>
       </div>
 
       {/*absolute dives*/}
